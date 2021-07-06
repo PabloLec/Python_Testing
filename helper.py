@@ -1,15 +1,6 @@
-import json
 from datetime import datetime
 
-
-def load_clubs():
-    with open("clubs.json") as file:
-        return json.load(file)["clubs"]
-
-
-def load_competitions():
-    with open("competitions.json") as file:
-        return json.load(file)["competitions"]
+from database import CLUBS, COMPETITIONS
 
 
 def get_club_by_mail(mail: str):
@@ -42,8 +33,8 @@ def get_competition_by_name(name: str):
     return selected_competition
 
 
-def get_max_places(club: dict):
-    return min(int(club["points"]), 12)
+def get_max_places(competition: dict, club: dict):
+    return min(int(club["points"]), int(competition["numberOfPlaces"]), 12)
 
 
 def is_competition_date_correct(date: str):
@@ -57,12 +48,10 @@ def is_purchase_valid(competition: str, club: str, places: str):
         return False
     if not places.isnumeric():
         return False
-    if not 0 < int(places) <= get_max_places(club=club):
+    if not 0 < int(places) <= get_max_places(competition=competition, club=club):
         return False
 
     return True
 
 
-COMPETITIONS = load_competitions()
-CLUBS = load_clubs()
 USER_CLUB = None

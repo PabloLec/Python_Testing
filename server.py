@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
+import database as DATABASE
 import helper as HELPER
 
 app = Flask(__name__)
@@ -12,9 +13,6 @@ def index():
 
 @app.route("/showSummary", methods=["POST"])
 def show_summary():
-    if HELPER.USER_CLUB is None:
-        return index()
-
     selected_club = HELPER.get_club_by_mail(mail=request.form["email"])
 
     if selected_club:
@@ -22,7 +20,7 @@ def show_summary():
         return render_template(
             "welcome.html",
             club=HELPER.USER_CLUB,
-            competitions=HELPER.COMPETITIONS,
+            competitions=DATABASE.COMPETITIONS,
         )
 
     flash("Email address not found")
@@ -35,7 +33,7 @@ def book(competition, club):
     selected_club = HELPER.get_club_by_name(name=club)
 
     if selected_competition and selected_club:
-        max_places = HELPER.get_max_places(club=selected_club)
+        max_places = HELPER.get_max_places(competition=selected_competition, club=selected_club)
         return render_template(
             "booking.html",
             club=selected_club,
@@ -47,7 +45,7 @@ def book(competition, club):
     return render_template(
         "welcome.html",
         club=HELPER.USER_CLUB,
-        competitions=HELPER.COMPETITIONS,
+        competitions=DATABASE.COMPETITIONS,
     )
 
 
@@ -65,19 +63,23 @@ def purchase_places():
     )
 
     if purchase_is_valid:
-        selected_competition["numberOfPlaces"] = int(selected_competition["numberOfPlaces"]) - int(places_required)
+        DATABASE.register_purchase(
+            competition=selected_competition,
+            club=selected_club,
+            places=places_required,
+        )
         flash("Great-booking complete!")
         return render_template(
             "welcome.html",
             club=selected_club,
-            competitions=HELPER.COMPETITIONS,
+            competitions=DATABASE.COMPETITIONS,
         )
 
     flash("Something went wrong-please try again")
     return render_template(
         "welcome.html",
         club=HELPER.USER_CLUB,
-        competitions=HELPER.COMPETITIONS,
+        competitions=DATABASE.COMPETITIONS,
     )
 
 

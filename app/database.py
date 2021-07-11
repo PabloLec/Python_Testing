@@ -15,8 +15,6 @@ def load_competitions():
 
 
 def register_purchase(competition: str, club: str, places: str):
-    print(" - 1 - ", competition)
-    print(" - 2 - ", COMPETITIONS)
     for i in range(len(COMPETITIONS)):
         if COMPETITIONS[i]["name"] == competition["name"]:
             COMPETITIONS[i]["numberOfPlaces"] = int(COMPETITIONS[i]["numberOfPlaces"]) - int(places)

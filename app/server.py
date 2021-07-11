@@ -20,7 +20,7 @@ def show_summary():
         _HELPER.USER_CLUB = selected_club
         return render_template(
             "welcome.html",
-            club=_HELPER.USER_CLUB,
+            club=selected_club,
             competitions=_HELPER.get_future_competitions(competitions=_DATABASE.COMPETITIONS),
         )
 
@@ -43,11 +43,7 @@ def book(competition, club):
         )
 
     flash("Something went wrong-please try again")
-    return render_template(
-        "welcome.html",
-        club=_HELPER.USER_CLUB,
-        competitions=_HELPER.get_future_competitions(competitions=_DATABASE.COMPETITIONS),
-    )
+    return render_template("index.html")
 
 
 @app.route("/purchasePlaces", methods=["POST"])
@@ -77,18 +73,14 @@ def purchase_places():
         )
 
     flash("Something went wrong-please try again")
-    return render_template(
-        "welcome.html",
-        club=_HELPER.USER_CLUB,
-        competitions=_DATABASE.COMPETITIONS,
-    )
+    return render_template("index.html")
 
 
 @app.route("/clubs")
 def list_clubs():
     return render_template(
         "clubs.html",
-        clubs=_HELPER.CLUBS,
+        clubs=_DATABASE.CLUBS,
     )
 
 

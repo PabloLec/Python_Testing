@@ -54,6 +54,3 @@ def is_purchase_valid(competition: str, club: str, places: str):
         return False
 
     return True
-
-
-USER_CLUB = None

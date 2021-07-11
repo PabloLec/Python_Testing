@@ -32,7 +32,7 @@ def test_get_competition_by_name(SAMPLE_DATABASE):
 
 
 def test_get_max_places(SAMPLE_DATABASE):
-    places_10 = _HELPER.get_max_places(
+    places_12 = _HELPER.get_max_places(
         competition=SAMPLE_DATABASE.COMPETITIONS[0], club=SAMPLE_DATABASE.CLUBS[0]
     )
     places_5 = _HELPER.get_max_places(
@@ -42,7 +42,7 @@ def test_get_max_places(SAMPLE_DATABASE):
         competition=SAMPLE_DATABASE.COMPETITIONS[0], club=SAMPLE_DATABASE.CLUBS[2]
     )
 
-    assert places_10 == 10
+    assert places_12 == 12
     assert places_5 == 5
     assert places_1 == 1
 

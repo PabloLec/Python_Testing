@@ -4,6 +4,7 @@ from pathlib import Path
 _DB_CLUBS_PATH = Path(__file__).resolve().parent / "db/clubs.json"
 _DB_COMPETITIONS_PATH = Path(__file__).resolve().parent / "db/competitions.json"
 
+
 def load_clubs():
     with open(_DB_CLUBS_PATH) as file:
         return json.load(file)["clubs"]
@@ -17,7 +18,9 @@ def load_competitions():
 def register_purchase(competition: str, club: str, places: str):
     for i in range(len(COMPETITIONS)):
         if COMPETITIONS[i]["name"] == competition["name"]:
-            COMPETITIONS[i]["numberOfPlaces"] = int(COMPETITIONS[i]["numberOfPlaces"]) - int(places)
+            COMPETITIONS[i]["numberOfPlaces"] = int(
+                COMPETITIONS[i]["numberOfPlaces"]
+            ) - int(places)
             break
         elif i == len(COMPETITIONS) - 1:
             raise ValueError
@@ -49,6 +52,7 @@ def load():
 
     COMPETITIONS = load_competitions()
     CLUBS = load_clubs()
+
 
 CLUBS = None
 COMPETITIONS = None

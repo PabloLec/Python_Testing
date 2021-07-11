@@ -42,8 +42,10 @@ def is_date_future(date: str):
 
     return datetime.today() < date_time_obj
 
+
 def get_future_competitions(competitions: list):
     return [x for x in competitions if is_date_future(x["date"])]
+
 
 def is_purchase_valid(competition: str, club: str, places: str):
     if not competition or not club:

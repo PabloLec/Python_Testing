@@ -7,6 +7,7 @@ app.secret_key = "something_special"
 
 _DATABASE.load()
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -21,7 +22,9 @@ def show_summary():
         return render_template(
             "welcome.html",
             club=selected_club,
-            competitions=_HELPER.get_future_competitions(competitions=_DATABASE.COMPETITIONS),
+            competitions=_HELPER.get_future_competitions(
+                competitions=_DATABASE.COMPETITIONS
+            ),
         )
 
     flash("Email address not found")
@@ -34,7 +37,9 @@ def book(competition, club):
     selected_club = _HELPER.get_club_by_name(name=club)
 
     if selected_competition and selected_club:
-        max_places = _HELPER.get_max_places(competition=selected_competition, club=selected_club)
+        max_places = _HELPER.get_max_places(
+            competition=selected_competition, club=selected_club
+        )
         return render_template(
             "booking.html",
             club=selected_club,
@@ -49,7 +54,9 @@ def book(competition, club):
 @app.route("/purchasePlaces", methods=["POST"])
 def purchase_places():
 
-    selected_competition = _HELPER.get_competition_by_name(name=request.form["competition"])
+    selected_competition = _HELPER.get_competition_by_name(
+        name=request.form["competition"]
+    )
     selected_club = _HELPER.get_club_by_name(name=request.form["club"])
     places_required = request.form["places"]
 

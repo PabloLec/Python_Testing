@@ -1,6 +1,8 @@
 import json
 import pytest
-
+from multiprocessing import Process
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from app import database as _DATABASE
 from app import server as _SERVER
 
@@ -67,3 +69,18 @@ def SAMPLE_DATABASE(SAMPLE_CLUBS, SAMPLE_COMPETITIONS):
 def CLIENT():
     with _SERVER.app.test_client() as client:
         yield client
+
+
+@pytest.fixture(scope="module")
+def DRIVER(SAMPLE_DATABASE):
+    p = Process(target=_SERVER.app.run)
+    p.daemon = True
+    p.start()
+
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--width=1920")
+    options.add_argument("--height=1080")
+    driver = webdriver.Firefox(options=options)
+    driver.get("http://127.0.0.1:5000")
+    return driver

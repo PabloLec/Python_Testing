@@ -5,3 +5,6 @@ lib
 .envrc
 __pycache__
 .DS_Store
+geckodriver.log
+htmlcov/
+.coverage

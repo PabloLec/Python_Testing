@@ -9,6 +9,7 @@ _CLUBS_FP = tempfile.NamedTemporaryFile()
 
 
 def create_clubs():
+    """Create temporary Clubs file."""
     clubs = {
         "clubs": [
             {"name": "Club Test 1", "email": "test1@test.com", "points": "20"},
@@ -26,6 +27,7 @@ def create_clubs():
 
 
 def create_competitions():
+    """Create temporary Competitions file."""
     competitions = {
         "competitions": [
             {
@@ -55,6 +57,7 @@ def create_competitions():
 
 
 def load_db():
+    """Load DB with temporary files."""
     _DATABASE._DB_CLUBS_PATH = create_clubs()
     _DATABASE._DB_COMPETITIONS_PATH = create_competitions()
 
@@ -64,6 +67,7 @@ def load_db():
 
 
 def server_wrapper():
+    """Mute Flask stdout and run server."""
     import logging
     import click
 
@@ -82,6 +86,7 @@ def server_wrapper():
 
 
 def start_server():
+    """Start Flask server process."""
     p = Process(target=server_wrapper)
     p.daemon = True
     p.start()

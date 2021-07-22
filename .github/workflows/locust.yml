@@ -21,6 +21,6 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
-    - name: Run unit tests
+    - name: Run Locust
       run: |
         python3 -m locust --config=tests/locust/locust.conf

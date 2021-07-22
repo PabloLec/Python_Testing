@@ -42,6 +42,11 @@ def test_competition_listing(CLIENT):
     assert b"Competition Test 2" in response.data
     assert b"Competition Test 3" not in response.data
 
+def test_invalid_booking(CLIENT):
+    response = CLIENT.get("/book/Foo/Bar")
+
+    assert response.status_code == 200
+    assert b"Welcome" in response.data
 
 def test_booking_display(CLIENT):
     response = CLIENT.get("/book/Competition Test 1/Club Test 1")

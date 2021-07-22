@@ -6,7 +6,6 @@ from selenium.webdriver.firefox.options import Options
 from app import database as _DATABASE
 from app import server as _SERVER
 
-
 @pytest.fixture(scope="module")
 def SAMPLE_CLUBS(tmp_path_factory):
     clubs = {
@@ -23,6 +22,7 @@ def SAMPLE_CLUBS(tmp_path_factory):
         json.dump(clubs, file, indent=4)
 
     return clubs_file_path, clubs
+
 
 
 @pytest.fixture(scope="module")
@@ -54,14 +54,13 @@ def SAMPLE_COMPETITIONS(tmp_path_factory):
 
     return competitions_file_path, competitions
 
-
 @pytest.fixture(scope="module")
 def SAMPLE_DATABASE(SAMPLE_CLUBS, SAMPLE_COMPETITIONS):
     _DATABASE._DB_CLUBS_PATH = SAMPLE_CLUBS[0]
     _DATABASE._DB_COMPETITIONS_PATH = SAMPLE_COMPETITIONS[0]
-
+    
     _DATABASE.load()
-
+    
     return _DATABASE
 
 

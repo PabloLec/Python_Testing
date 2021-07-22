@@ -11,7 +11,7 @@ def load_clubs():
     Returns:
         dict: DB clubs.
     """
-    with open(_DB_CLUBS_PATH) as file:
+    with open(_DB_CLUBS_PATH, 'r') as file:
         return json.load(file)["clubs"]
 
 
@@ -21,7 +21,7 @@ def load_competitions():
     Returns:
         dict: DB competitions.
     """
-    with open(_DB_COMPETITIONS_PATH) as file:
+    with open(_DB_COMPETITIONS_PATH, 'r') as file:
         return json.load(file)["competitions"]
 
 
